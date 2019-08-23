@@ -1,7 +1,5 @@
-# APPSHELL
-- Do not include this command when creating PWA application
-> ng generate app-shell ...
-
+# Made significant improvements! Everything is working fine!
+- Thanks!!!
 # AppRouteExample
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.0.

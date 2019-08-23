@@ -19,6 +19,7 @@ import { LibSharedModule } from 'lib-shared';
     RouterModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
+  exports: [LibSharedModule],
   providers: [],
   bootstrap: [AppComponent]
 })
