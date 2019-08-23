@@ -5,15 +5,15 @@ import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AppShellComponent } from './app-shell/app-shell.component';
-import { AppRoutingModule } from './app-routing.module';
+import { routes } from './app-routing.module';
 
-// const routes: Routes = [ { path: 'shell', component: AppShellComponent }];
+// const routes: Routes = [ { path: 'app', component: AppShellComponent }];
 
 @NgModule({
   imports: [
     AppModule,
     ServerModule,
-    AppRoutingModule,
+    // RouterModule.forRoot(routes),
   ],
   bootstrap: [AppComponent],
   declarations: [AppShellComponent],
