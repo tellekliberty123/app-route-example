@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { debounceTime, takeUntil } from 'rxjs/operators';
 
 import { BaseFormComponent } from '../base-from/base-form.component';
-import { from, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'lib-signup',
@@ -38,17 +38,18 @@ export class SignupComponent extends BaseFormComponent implements OnInit, OnDest
           Validators.maxLength(15)
         ]
       ],
-      lastName: { value: 'n/a', disabled: true },
+      lastName: [''],
       email: ['', [Validators.required, Validators.email]],
       phone: '',
       notification: 'email'
     });
 
-    this.customerSignupForm.valueChanges.pipe(
+    const notificationControl = this.customerSignupForm.get('notification');
+    notificationControl.valueChanges.pipe(
       takeUntil(this.ngUnsubscribe),
       debounceTime(1000)
-    ).subscribe(controls => {
-      this.setNotification();
+    ).subscribe(control => {
+      this.setNotification(control);
     });
 
     // alternative to FormBuilder. Use FormBuilder instead
@@ -59,11 +60,21 @@ export class SignupComponent extends BaseFormComponent implements OnInit, OnDest
     // });
   }
 
+  get firstName() {
+    return this.customerSignupForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.customerSignupForm.get('lastName');
+  }
+
   save(): void {
     console.log('customerSignupForm is valid', this.customerSignupForm.valid);
     console.log('customerSignupForm is touched', this.customerSignupForm.touched);
     console.log('customerSignupForm value', this.customerSignupForm.value);
-    console.log('customerSignupForm errors', this.customerSignupForm.errors);
+    console.log('lastName value', this.lastName.value);
+    console.log('firstName errors', this.firstName.errors);
+    console.log('lastName errors', this.lastName.errors);
   }
 
   setValues(): void {
@@ -85,14 +96,13 @@ export class SignupComponent extends BaseFormComponent implements OnInit, OnDest
   }
 
   // a better way is to subscribe to phone control valueChanges
-  setNotification(): void {
-    const notificationControl = this.customerSignupForm.get('notification');
+  setNotification(control: string): void {
     const phoneControl = this.customerSignupForm.get('phone');
     if (!phoneControl) {
       return;
     }
-    if (notificationControl.value === 'text') {
-      phoneControl.setValidators(Validators.required);
+    if (control === 'text') {
+      phoneControl.setValidators([Validators.required, Validators.minLength(10)]);
     } else {
       phoneControl.clearValidators();
     }
