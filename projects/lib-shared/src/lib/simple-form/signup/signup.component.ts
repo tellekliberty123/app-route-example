@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
+import { debounceTime, takeUntil } from 'rxjs/operators';
+
 import { BaseFormComponent } from '../base-from/base-form.component';
+import { from, Subject } from 'rxjs';
 
 @Component({
   selector: 'lib-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent extends BaseFormComponent implements OnInit {
+export class SignupComponent extends BaseFormComponent implements OnInit, OnDestroy {
   public customerSignupForm: FormGroup;
+
+  private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
   constructor(private fb: FormBuilder) {
     super();
@@ -17,6 +22,12 @@ export class SignupComponent extends BaseFormComponent implements OnInit {
 
    ngOnInit() {
      this.createFormGroup();
+   }
+
+   ngOnDestroy() {
+     this.ngUnsubscribe.next(true);
+     this.ngUnsubscribe.complete();
+     this.ngUnsubscribe.unsubscribe();
    }
 
   protected createFormGroup(): void {
@@ -34,7 +45,10 @@ export class SignupComponent extends BaseFormComponent implements OnInit {
     });
 
     const phoneControl = this.customerSignupForm.get('phone');
-    phoneControl.valueChanges.subscribe((value: any) => {
+    phoneControl.valueChanges.pipe(
+        takeUntil(this.ngUnsubscribe),
+        debounceTime(1000)
+      ).subscribe((value: any) => {
       this.setNotification(value);
     });
 

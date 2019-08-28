@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "prestart": "npm run build:lib && npm run build",
-    "start:serve": "http-server -p 4200 ./dist/app-route-example/",
-    "start": "ng serve",
+    "start": "http-server -p 4200 ./dist/app-route-example/",
+    "start:serve": "npm run prestart && ng serve",
     "build": "ng build --prod",
     "build:lib": "ng build lib-shared",
     "test": "ng test",
