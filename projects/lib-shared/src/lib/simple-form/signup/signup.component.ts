@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { debounceTime, takeUntil } from 'rxjs/operators';
 
@@ -85,12 +85,12 @@ export class SignupComponent extends BaseFormComponent implements OnInit, OnDest
   }
 
   // a better way is to subscribe to phone control valueChanges
-  setNotification(notifyVia: string): void {
+  setNotification(control: AbstractControl): void {
     const phoneControl = this.customerSignupForm.get('phone');
     if (!phoneControl) {
       return;
     }
-    if (notifyVia === 'text') {
+    if (control.value === 'text') {
       phoneControl.setValidators(Validators.required);
     } else {
       phoneControl.clearValidators();
