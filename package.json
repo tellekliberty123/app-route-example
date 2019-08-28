@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "prestart": "npm run build:lib && npm run build",
+    "start:serve": "http-server -p 4200 ./dist/app-route-example/",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
+    "build:lib": "ng build lib-shared",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -1,0 +1,66 @@
+<form novalidate [formGroup]="customerSignupForm">
+    <div>
+        <label for="firstNameId">First Name:</label>
+        <input id="firstNameId"
+               type="text"
+               required
+               placeholder="First Name (required)"
+               formControlName="firstName" />
+    </div>
+    <div>
+        <label for="lastNameId">Last Name:</label>
+        <input id="lastNameId"
+               type="text"
+               required
+               placeholder="Last Name (required)"
+               formControlName="lastName" />
+    </div>
+    <div>
+        <label for="emailId">Email:</label>
+        <input id="emailId"
+               type="text"
+               required
+               placeholder="Email (required)"
+               formControlName="email" />
+    </div>
+    <div>
+        <label for="phoneId">Phone:</label>
+        <input id="phoneId"
+                type="text"
+                required
+                placeholder="Phone"
+                formControlName="phone" />
+    </div>
+    <div>
+        <input id="notificationByEmail"
+                type="radio"
+                value="email"
+                formControlName="notification" /> Email
+    </div>
+    <div>
+        <input id="notificationByText"
+                type="radio"
+                value="text"
+                formControlName="notification" /> Text
+    </div>
+    <div>
+        <button type="button"
+                title="Save your work"
+                (click)="save()">
+            Save
+        </button>
+    </div>
+    <div>
+        <button type="button"
+                title="Set Value"
+                (click)="setValues()">
+            Set all Values
+        </button>
+    </div>
+    <div>
+        <button type="button"
+                (click)="patchValues()">
+            Set Some Values
+        </button>
+    </div>
+</form>
