@@ -63,6 +63,7 @@ export class SignupComponent extends BaseFormComponent implements OnInit, OnDest
     console.log('customerSignupForm is valid', this.customerSignupForm.valid);
     console.log('customerSignupForm is touched', this.customerSignupForm.touched);
     console.log('customerSignupForm value', this.customerSignupForm.value);
+    console.log('customerSignupForm errors', this.customerSignupForm.errors);
   }
 
   setValues(): void {
