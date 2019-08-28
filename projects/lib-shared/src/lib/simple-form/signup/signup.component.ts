@@ -44,12 +44,11 @@ export class SignupComponent extends BaseFormComponent implements OnInit, OnDest
       notification: 'email'
     });
 
-    const phoneControl = this.customerSignupForm.get('phone');
-    phoneControl.valueChanges.pipe(
-        takeUntil(this.ngUnsubscribe),
-        debounceTime(1000)
-      ).subscribe((value: any) => {
-      this.setNotification(value);
+    this.customerSignupForm.valueChanges.pipe(
+      takeUntil(this.ngUnsubscribe),
+      debounceTime(1000)
+    ).subscribe(controls => {
+      this.setNotification();
     });
 
     // alternative to FormBuilder. Use FormBuilder instead
@@ -85,12 +84,13 @@ export class SignupComponent extends BaseFormComponent implements OnInit, OnDest
   }
 
   // a better way is to subscribe to phone control valueChanges
-  setNotification(control: AbstractControl): void {
+  setNotification(): void {
+    const notificationControl = this.customerSignupForm.get('notification');
     const phoneControl = this.customerSignupForm.get('phone');
     if (!phoneControl) {
       return;
     }
-    if (control.value === 'text') {
+    if (notificationControl.value === 'text') {
       phoneControl.setValidators(Validators.required);
     } else {
       phoneControl.clearValidators();
