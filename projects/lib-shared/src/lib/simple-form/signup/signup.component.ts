@@ -18,17 +18,17 @@ export class SignupComponent extends BaseFormComponent implements OnInit, OnDest
 
   constructor(private fb: FormBuilder) {
     super();
-   }
+  }
 
-   ngOnInit() {
-     this.createFormGroup();
-   }
+  ngOnInit() {
+    this.createFormGroup();
+  }
 
-   ngOnDestroy() {
-     this.ngUnsubscribe.next(true);
-     this.ngUnsubscribe.complete();
-     this.ngUnsubscribe.unsubscribe();
-   }
+  ngOnDestroy() {
+    this.ngUnsubscribe.next(true);
+    this.ngUnsubscribe.complete();
+    this.ngUnsubscribe.unsubscribe();
+  }
 
   protected createFormGroup(): void {
     this.customerSignupForm = this.fb.group({
