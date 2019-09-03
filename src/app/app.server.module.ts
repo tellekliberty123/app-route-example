@@ -16,6 +16,8 @@ import { routes } from './app-routing.module';
     // RouterModule.forRoot(routes),
   ],
   bootstrap: [AppComponent],
-  declarations: [AppShellComponent],
+  declarations: [
+    // AppShellComponent
+  ],
 })
 export class AppServerModule {}
