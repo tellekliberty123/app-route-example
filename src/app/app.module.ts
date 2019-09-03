@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { AppShellComponent } from './app-shell/app-shell.component';
 import { LibSharedModule } from 'lib-shared';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { LibSharedModule } from 'lib-shared';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     LibSharedModule,
-    RouterModule,
+    CoreModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   exports: [LibSharedModule],

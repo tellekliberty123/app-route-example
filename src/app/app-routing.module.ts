@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppShellComponent } from './app-shell/app-shell.component';
 
-
 export const routes: Routes = [{
   path: 'app',
   component: AppShellComponent
@@ -19,7 +18,8 @@ export const routes: Routes = [{
 }];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
   // static components: any[] = [
